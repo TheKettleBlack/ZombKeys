@@ -8,14 +8,14 @@ pygame.init()
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 650
 BLACK = (0,0,0)
-GRAY = (50,50,50)
 WHITE = (255,255,255)
 font = pygame.font.Font("font/alagard.ttf", 32)
 font_small = pygame.font.Font("font/Nintendo-DS-BIOS.ttf", 16)
 font_large = pygame.font.Font("font/alagard.ttf", 64)
-current_level = 0
+current_level = 12
 current_kills = 0
 current_remaining = 0
+current_health = 100
 between_rounds = True
 game_over = False
 typed = ""
@@ -23,8 +23,8 @@ typed = ""
 # window setup
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('ZombKeys')
-#programIcon = pygame.image.load('img/icon.png').convert_alpha()
-#pygame.display.set_icon(programIcon)
+programIcon = pygame.image.load('img/i.png').convert_alpha()
+pygame.display.set_icon(programIcon)
 clock = pygame.time.Clock()
 FPS = 60
 run = True
@@ -43,9 +43,16 @@ img_9 = pygame.image.load('img/9.png').convert_alpha()
 img_a = pygame.image.load('img/a.png').convert_alpha()
 img_b = pygame.image.load('img/b.png').convert_alpha()
 img_x = pygame.image.load('img/x.png').convert_alpha()
+img_b1 = pygame.image.load('img/b1.png').convert_alpha()
+img_b2 = pygame.image.load('img/b2.png').convert_alpha()
+img_b3 = pygame.image.load('img/b3.png').convert_alpha()
+img_b4 = pygame.image.load('img/b4.png').convert_alpha()
+img_b5 = pygame.image.load('img/b5.png').convert_alpha()
+img_b6 = pygame.image.load('img/b6.png').convert_alpha()
+img_f = pygame.image.load('img/f.png').convert_alpha()
 img_e = pygame.image.load('img/explosion/0.png').convert_alpha()
 
-#classes
+# classes
 class Person(pygame.sprite.Sprite):
     def __init__(self,zombkey_word,x,y):
         pygame.sprite.Sprite.__init__(self)
@@ -71,7 +78,6 @@ class Person(pygame.sprite.Sprite):
         elif random_image == 9:
             self.image = img_9
         self.zombkey_word = zombkey_word
-        # print(self.zombkey_word)
         self.x = x
         self.y = y
         self.rect = self.image.get_rect()
@@ -80,35 +86,54 @@ class Person(pygame.sprite.Sprite):
         label_group.add(label)
 
     def move_zombkey(self):
-        global current_level
+        global current_level, current_health, current_remaining
         if current_level == 1 or current_level == 2:
             self.x -= 0.3
         if current_level == 3 or current_level == 4:
-            self.x -= 0.4
+            self.x -= 0.35
         if current_level == 5 or current_level == 6:
-            self.x -= 0.5
+            self.x -= 0.4
         if current_level == 7 or current_level == 8:
-            self.x -= 0.6
+            self.x -= 0.45
         if current_level == 9 or current_level == 10:
-            self.x -= 0.7
+            self.x -= 0.6
         if current_level == 11 or current_level == 12:
-            self.x -= 0.8
+            self.x -= 0.65
         if current_level == 13 or current_level == 14:
+            self.x -= 0.7
+        if current_level == 15 or current_level == 16:
+            self.x -= 0.75
+        if current_level == 17 or current_level == 18:
+            self.x -= 0.8
+        if current_level == 19 or current_level == 20:
+            self.x -= 0.85
+        if current_level == 21 or current_level == 22:
             self.x -= 0.9
-        if current_level > 14:
+        if current_level == 23 or current_level == 24:
+            self.x -= 0.95
+        if current_level > 24:
             self.x -= 1
         if self.x < 100:
-            dead()
+            for j in label_group:
+                if j.zombkey_word == self.zombkey_word:
+                    j.kill()
+            current_remaining -= 1
+            self.kill()
+            fire = Fire(self.x-50,self.y)
+            fire_group.add(fire)
+            current_health = current_health - len(self.zombkey_word)
+            if current_health < 0:
+                current_health = 0
+                dead()
 
     def draw(self):
         screen.blit(self.image,(self.x,self.y))
 
-#this is a copy of person class for label
 class Label(pygame.sprite.Sprite):
     def __init__(self,zombkey_word,z_width,x,y):
         pygame.sprite.Sprite.__init__(self)
         self.zombkey_word = zombkey_word
-        self.img = font_small.render(zombkey_word,True,BLACK,WHITE)
+        self.img = font_small.render(" " + zombkey_word + " ",True,BLACK,WHITE)
         self.rect = self.img.get_rect()
         label_width = self.rect.width
         if label_width >= z_width:
@@ -124,18 +149,28 @@ class Label(pygame.sprite.Sprite):
         if current_level == 1 or current_level == 2:
             self.x -= 0.3
         if current_level == 3 or current_level == 4:
-            self.x -= 0.4
+            self.x -= 0.35
         if current_level == 5 or current_level == 6:
-            self.x -= 0.5
+            self.x -= 0.4
         if current_level == 7 or current_level == 8:
-            self.x -= 0.6
+            self.x -= 0.45
         if current_level == 9 or current_level == 10:
-            self.x -= 0.7
+            self.x -= 0.6
         if current_level == 11 or current_level == 12:
-            self.x -= 0.8
+            self.x -= 0.65
         if current_level == 13 or current_level == 14:
+            self.x -= 0.7
+        if current_level == 15 or current_level == 16:
+            self.x -= 0.75
+        if current_level == 17 or current_level == 18:
+            self.x -= 0.8
+        if current_level == 19 or current_level == 20:
+            self.x -= 0.85
+        if current_level == 21 or current_level == 22:
             self.x -= 0.9
-        if current_level > 14:
+        if current_level == 23 or current_level == 24:
+            self.x -= 0.95
+        if current_level > 24:
             self.x -= 1
 
     def draw(self):
@@ -162,7 +197,6 @@ class Explosion(pygame.sprite.Sprite):
         if self.counter >= EXPLOSION_SPEED:
             self.counter = 0
             self.frame_index += 1
-            # if the animation is complete then delete the explosion
             if self.frame_index >= len(self.images):
                 self.kill()
             else:
@@ -172,7 +206,46 @@ class Explosion(pygame.sprite.Sprite):
         for explosion in explosion_group:
             screen.blit(explosion.image,(explosion.x,explosion.y))
 
-#functions
+class Blood(pygame.sprite.Sprite):
+    def __init__(self,blood_x,blood_y):
+        pygame.sprite.Sprite.__init__(self)
+        self.x = blood_x
+        self.y = blood_y
+        random_image = random.randint(1,6)
+        if random_image == 1:
+            self.image = img_b1
+        elif random_image == 2:
+            self.image = img_b2
+        elif random_image == 3:
+            self.image = img_b3
+        elif random_image == 4:
+            self.image = img_b4
+        elif random_image == 5:
+            self.image = img_b5
+        elif random_image == 6:
+            self.image = img_b6
+        self.rect = self.image.get_rect()
+        blood_sprite = (self.image,(self.x,self.y))
+
+    def draw(self):
+        for blood in blood_group:
+            screen.blit(blood.image,(blood.x,blood.y))
+
+class Fire(pygame.sprite.Sprite):
+    def __init__(self,fire_x,fire_y):
+        pygame.sprite.Sprite.__init__(self)
+        self.x = fire_x
+        self.y = fire_y
+        random_image = random.randint(1,6)
+        self.image = img_f
+        self.rect = self.image.get_rect()
+        fire_sprite = (self.image,(self.x,self.y))
+
+    def draw(self):
+        for fire in fire_group:
+            screen.blit(fire.image,(fire.x,fire.y))
+
+# functions
 def draw_bg():
     screen.fill(BLACK)
     screen.blit(img_b,((0,50)))
@@ -200,6 +273,8 @@ def shoot():
             current_remaining -= 1
             explosion_sprite = Explosion(zombkey.x,zombkey.y)
             explosion_group.add(explosion_sprite)
+            blood_sprite = Blood(zombkey.x,zombkey.y)
+            blood_group.add(blood_sprite)
     for label in label_group:
         if typed == label.zombkey_word:
             label.kill()
@@ -211,34 +286,115 @@ def get_zombkeys():
     number_of_zombkeys = 4 + current_level
     global current_remaining
     current_remaining = number_of_zombkeys
-    if current_level == 1 or current_level == 2 or current_level == 3:
+    if current_level == 1 or current_level == 2 or current_level == 3 or current_level == 4:
         my_file = open("texts/4.txt", "r")
-    if current_level == 4 or current_level == 5 or current_level == 6:
+        word_list = my_file.read()
+        word_list = word_list.split("\n")
+        my_file.close()
+    if current_level == 3 or current_level == 4:
+        my_file2 = open("texts/5.txt", "r")
+        word_list2 = my_file2.read()
+        word_list2 = word_list2.split("\n")
+        for i in word_list2:
+            word_list.append(i)
+        my_file2.close()
+    if current_level == 5 or current_level == 6 or current_level == 7 or current_level == 8:
         my_file = open("texts/5.txt", "r")
-    if current_level == 7 or current_level == 8 or current_level == 9:
+        word_list = my_file.read()
+        word_list = word_list.split("\n")
+        my_file.close()
+    if current_level == 7 or current_level == 8:
+        my_file2 = open("texts/6.txt", "r")
+        word_list2 = my_file2.read()
+        word_list2 = word_list2.split("\n")
+        for i in word_list2:
+            word_list.append(i)
+        my_file2.close()
+    if current_level == 9 or current_level == 10 or current_level == 11 or current_level == 12:
         my_file = open("texts/6.txt", "r")
-    if current_level == 10 or current_level == 11 or current_level == 12:
+        word_list = my_file.read()
+        word_list = word_list.split("\n")
+        my_file.close()
+    if current_level == 11 or current_level == 12:
+        my_file2 = open("texts/7.txt", "r")
+        word_list2 = my_file2.read()
+        word_list2 = word_list2.split("\n")
+        for i in word_list2:
+            word_list.append(i)
+        my_file2.close()
+    if current_level == 13 or current_level == 14 or current_level == 15 or current_level == 16:
         my_file = open("texts/7.txt", "r")
-    if current_level == 13 or current_level == 14 or current_level == 15:
+        word_list = my_file.read()
+        word_list = word_list.split("\n")
+        my_file.close()
+    if current_level == 15 or current_level == 16:
+        my_file2 = open("texts/8.txt", "r")
+        word_list2 = my_file2.read()
+        word_list2 = word_list2.split("\n")
+        for i in word_list2:
+            word_list.append(i)
+        my_file2.close()
+    if current_level == 17 or current_level == 18 or current_level == 19 or current_level == 20:
         my_file = open("texts/8.txt", "r")
-    if current_level == 16 or current_level == 17 or current_level == 18:
+        word_list = my_file.read()
+        word_list = word_list.split("\n")
+        my_file.close()
+    if current_level == 19 or current_level == 20:
+        my_file2 = open("texts/9.txt", "r")
+        word_list2 = my_file2.read()
+        word_list2 = word_list2.split("\n")
+        for i in word_list2:
+            word_list.append(i)
+        my_file2.close()
+    if current_level == 21 or current_level == 22 or current_level == 23 or current_level == 24:
         my_file = open("texts/9.txt", "r")
-    if current_level == 19 or current_level == 20 or current_level == 21:
+        word_list = my_file.read()
+        word_list = word_list.split("\n")
+        my_file.close()
+    if current_level == 23 or current_level == 24:
+        my_file2 = open("texts/10.txt", "r")
+        word_list2 = my_file2.read()
+        word_list2 = word_list2.split("\n")
+        for i in word_list2:
+            word_list.append(i)
+        my_file2.close()
+    if current_level == 25 or current_level == 26 or current_level == 27 or current_level == 28:
         my_file = open("texts/10.txt", "r")
-    if current_level == 22 or current_level == 23 or current_level == 24:
+        word_list = my_file.read()
+        word_list = word_list.split("\n")
+        my_file.close()
+    if current_level == 27 or current_level == 28:
+        my_file2 = open("texts/11.txt", "r")
+        word_list2 = my_file2.read()
+        word_list2 = word_list2.split("\n")
+        for i in word_list2:
+            word_list.append(i)
+        my_file2.close()
+    if current_level == 29 or current_level == 30 or current_level == 31 or current_level == 32:
         my_file = open("texts/11.txt", "r")
-    if current_level > 24:
+        word_list = my_file.read()
+        word_list = word_list.split("\n")
+        my_file.close()
+    if current_level == 31 or current_level == 32:
+        my_file2 = open("texts/12.txt", "r")
+        word_list2 = my_file2.read()
+        word_list2 = word_list2.split("\n")
+        for i in word_list2:
+            word_list.append(i)
+        my_file2.close()
+    if current_level > 32:
         my_file = open("texts/12.txt", "r")
-    word_list = my_file.read()
-    word_list = word_list.split("\n")
+        word_list = my_file.read()
+        word_list = word_list.split("\n")
+        my_file.close()
+    
     x = 0
     while x < number_of_zombkeys:
         word_to_get = random.randint(0,len(word_list)-1)
         zombkey_word = word_list.pop(word_to_get)
-        zombkey = Person(zombkey_word,random.randint(1000,1300),random.randint(62,542))
+        zombkey = Person(zombkey_word,random.randint(1000,1200+(current_level*22)),random.randint(62,542))
         zombkey_group.add(zombkey)
         x += 1
-    my_file.close()
 
 def dead():
     global between_rounds, game_over
@@ -251,21 +407,25 @@ def dead():
 zombkey_group = pygame.sprite.Group()
 label_group = pygame.sprite.Group()
 explosion_group = pygame.sprite.Group()
+blood_group = pygame.sprite.Group()
+fire_group = pygame.sprite.Group()
 
 # game loop
 while run:
 
     # calls
     draw_bg()
-    draw_text("Level: " + str(current_level),font,WHITE,12,12)
-    draw_text("Kills: " + str(current_kills),font,WHITE,182,12)
-    draw_text("Remaining: " + str(current_remaining),font,WHITE,362,12)
+    draw_text("Health: " + str(current_health),font,WHITE,12,12)
+    draw_text("Level: " + str(current_level),font,WHITE,212,12)
+    draw_text("Kills: " + str(current_kills),font,WHITE,412,12)
+    #draw_text("Remaining: " + str(current_remaining),font,WHITE,372,12)
     draw_text("Shot: " + str(typed),font,WHITE,612,12)
 
-    if between_rounds == True:
-        draw_text("Press [SPACE] to begin",font,BLACK,340,300)
-    if game_over == True:
-        draw_text("GAME OVER!",font_large,BLACK,325,200)
+    for blood in blood_group:
+        blood.draw()
+
+    for fire in fire_group:
+        fire.draw()
 
     for zombkey in zombkey_group:
         zombkey.update()
@@ -280,6 +440,11 @@ while run:
     for explosion in explosion_group:
         explosion.update()
         explosion.draw()
+
+    if between_rounds == True:
+        draw_text("Press [SPACE] to begin",font,BLACK,340,300)
+    if game_over == True:
+        draw_text("GAME OVER!",font_large,BLACK,325,200)
 
     # event checkers
     for event in pygame.event.get():
@@ -350,9 +515,12 @@ while run:
                         current_level = 0
                         current_kills = 0
                         typed = ""
+                        fire_group.empty()
                         game_over = False
+                        current_health = 100
                     current_level += 1
                     between_rounds = False
+                    blood_group.empty()
                     get_zombkeys()
             if event.key == pygame.K_RETURN:
                 if between_rounds == False:
@@ -361,5 +529,8 @@ while run:
                 if between_rounds == False:
                     typed = typed[:-1]
 
+    # screen cleanup and tick
+    if current_remaining == 0:
+            between_rounds = True
     pygame.display.update()
     clock.tick(FPS)
