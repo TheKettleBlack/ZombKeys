@@ -5,7 +5,7 @@ Type the word above the zombie's head, and hit enter or space to shoot a zombie 
 
 ![ZombKeys Gameplay Screenshot](/ZombKeys_Screenshot.png?raw=true "ZombKeys Gameplay Screenshot")
 
-# v0.2 (3/26/23)
+## v0.2 (3/26/23)
 
 - increase padding on word above zombie head
 - added a program icon
