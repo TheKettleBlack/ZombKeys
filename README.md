@@ -3,7 +3,7 @@ A zombie killing typing game. Requires PyGame and Python.
 
 How to play:
 
-Type the word above the zombie's head, and hit enter or space to shoot a zombie and kill it. If a zombie reaches your fortification before you've killed it, it will damage your fortification for a number of points equal to the number of letters in the word. If your fortification health reaches zero, it's game over.
+Type the word above the zombie's head, and hit enter or space to shoot a zombie and kill it. Words get longer and more zombkeys spawn each round. If a zombie reaches your fortification before you've killed it, it will damage your fortification for a number of points equal to the number of letters in the word. If your fortification health reaches zero, it's game over.
 
 ![ZombKeys Gameplay Screenshot](/ZombKeys_Screenshot.png?raw=true "ZombKeys Gameplay Screenshot")
 
