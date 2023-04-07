@@ -12,7 +12,7 @@ WHITE = (255,255,255)
 font = pygame.font.Font("font/alagard.ttf", 32)
 font_small = pygame.font.Font("font/Nintendo-DS-BIOS.ttf", 16)
 font_large = pygame.font.Font("font/alagard.ttf", 64)
-current_level = 12
+current_level = 0
 current_kills = 0
 current_remaining = 0
 current_health = 100
@@ -245,12 +245,23 @@ class Fire(pygame.sprite.Sprite):
         for fire in fire_group:
             screen.blit(fire.image,(fire.x,fire.y))
 
+class Player(pygame.sprite.Sprite):
+    def __init__(self,y=(SCREEN_HEIGHT-50)/2):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = img_a
+        self.x = 5
+        self.y = y
+        self.rect = self.image.get_rect()
+
+    def draw(self):
+        for player in player_group:
+            screen.blit(player.image,(player.x,player.y))
+
 # functions
 def draw_bg():
     screen.fill(BLACK)
     screen.blit(img_b,((0,50)))
     screen.blit(img_x,((50,50)))
-    screen.blit(img_a,((5,(SCREEN_HEIGHT-50)/2)))
 
 def draw_text(text,font,text_col,x,y):
     img = font.render(text,True,text_col)
@@ -275,6 +286,9 @@ def shoot():
             explosion_group.add(explosion_sprite)
             blood_sprite = Blood(zombkey.x,zombkey.y)
             blood_group.add(blood_sprite)
+            player = Player(zombkey.y)
+            player_group.add(player)
+            
     for label in label_group:
         if typed == label.zombkey_word:
             label.kill()
@@ -409,6 +423,11 @@ label_group = pygame.sprite.Group()
 explosion_group = pygame.sprite.Group()
 blood_group = pygame.sprite.Group()
 fire_group = pygame.sprite.Group()
+player_group = pygame.sprite.GroupSingle()
+
+# initial draw of player sprite
+player = Player()
+player_group.add(player)
 
 # game loop
 while run:
@@ -420,6 +439,9 @@ while run:
     draw_text("Kills: " + str(current_kills),font,WHITE,412,12)
     #draw_text("Remaining: " + str(current_remaining),font,WHITE,372,12)
     draw_text("Shot: " + str(typed),font,WHITE,612,12)
+
+    for player in player_group:
+        player.draw()
 
     for blood in blood_group:
         blood.draw()
@@ -443,6 +465,7 @@ while run:
 
     if between_rounds == True:
         draw_text("Press [SPACE] to begin",font,BLACK,340,300)
+        typed = ""
     if game_over == True:
         draw_text("GAME OVER!",font_large,BLACK,325,200)
 
@@ -531,6 +554,6 @@ while run:
 
     # screen cleanup and tick
     if current_remaining == 0:
-            between_rounds = True
+        between_rounds = True
     pygame.display.update()
     clock.tick(FPS)
