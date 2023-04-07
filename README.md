@@ -23,3 +23,8 @@ In this update:
 - Game no longer ends immediately after 1 zombkey reaches your fortification
 - Fire now appears when a zombkey reaches your fortification
 - Fortification health decreases by 1 for every letter of the breaching zombkey
+
+## v0.3 (4/7/23)
+- Cleaned up the word lists, removing duplicate and offensive words
+- Any typed characters are now cleared between rounds
+- The player now moves in line with any zombkey they shoot
