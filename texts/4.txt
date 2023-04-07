@@ -14,14 +14,12 @@ bios
 blow
 blue
 boat
-boob
 boot
 both
 boyo
 brew
 busk
 buss
-butt
 cafe
 call
 case
@@ -85,7 +83,6 @@ fuse
 fuss
 gain
 gape
-gape
 gilt
 glad
 gnat
@@ -96,7 +93,6 @@ grit
 grow
 guff
 hand
-hand
 hard
 haul
 heat
@@ -104,11 +100,8 @@ help
 hide
 hill
 hire
-hmmm
 hong
 honk
-honk
-horn
 horn
 husk
 hymn
@@ -124,7 +117,6 @@ jail
 jerk
 junk
 just
-keen
 keen
 kelp
 kick
@@ -152,7 +144,6 @@ melt
 mend
 meow
 mile
-mmmm
 moan
 moog
 moot
@@ -162,7 +153,6 @@ moto
 much
 nail
 napa
-nazi
 neck
 need
 newt
@@ -197,8 +187,6 @@ race
 rake
 raki
 rant
-rape
-rape
 read
 ream
 ride
@@ -206,16 +194,13 @@ rise
 roll
 romp
 roux
-rrna
 sage
-save
 save
 scam
 scot
 seal
 seat
 self
-shit
 shul
 silo
 site
@@ -223,9 +208,7 @@ skew
 skit
 slam
 slow
-slut
 smug
-smut
 snag
 snob
 snub
@@ -243,7 +226,6 @@ swig
 sync
 taut
 taxi
-taxi
 thai
 they
 thin
@@ -256,14 +238,12 @@ toga
 tone
 tout
 trim
-trim
 trot
 tune
 turf
 twat
 twee
 ulna
-ummm
 unix
 user
 veep

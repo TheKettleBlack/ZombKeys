@@ -143,7 +143,6 @@ gaily
 gauze
 gawky
 giant
-giant
 gleam
 gloss
 glowy
@@ -156,7 +155,6 @@ grade
 graft
 grain
 grand
-grand
 grant
 grass
 grate
@@ -164,12 +162,10 @@ grave
 great
 greek
 gripe
-gripe
 grope
 gruff
 guard
 guess
-guide
 guide
 gyrus
 haiku
@@ -183,10 +179,8 @@ hooky
 hosel
 hound
 humor
-hymen
 hyper
 idiot
-ileum
 imbed
 imbue
 inapt
@@ -276,7 +270,6 @@ pured
 pushy
 quack
 quark
-queer
 quilt
 quits
 quote
@@ -355,7 +348,6 @@ steer
 stein
 steno
 stick
-stilt
 stilt
 stink
 stork

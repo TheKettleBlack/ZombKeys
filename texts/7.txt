@@ -22,7 +22,6 @@ amorite
 analyte
 anodyne
 another
-antigay
 antique
 antiwar
 apology
@@ -440,7 +439,6 @@ perfidy
 persian
 petrify
 petting
-petting
 pillage
 pillory
 pincers
@@ -457,7 +455,6 @@ plateau
 playing
 playset
 plunder
-poisson
 polling
 portent
 possess
@@ -475,7 +472,6 @@ proviso
 pruning
 pulling
 pumpkin
-pursuit
 pursuit
 pushpin
 quarrel
@@ -528,7 +524,6 @@ scherzo
 schmuck
 scholar
 scoring
-scrotal
 scrunch
 sculler
 sculpin

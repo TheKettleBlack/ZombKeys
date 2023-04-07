@@ -1,4 +1,3 @@
-aboriginal
 absolutely
 accentuate
 acceptably
@@ -455,7 +454,6 @@ secularize
 semiformal
 sensitized
 sentencing
-sentencing
 sharpening
 silhouette
 sloppiness
@@ -490,12 +488,10 @@ succinctly
 suddenness
 summarized
 superfluid
-superfluid
 superwoman
 supplement
 supporting
 surprising
-surrealist
 surrealist
 switchover
 syndicated
@@ -516,7 +512,6 @@ transposed
 tridentine
 triggerman
 tuberculin
-ultralight
 ultralight
 uncovering
 uncredited
@@ -556,7 +551,6 @@ warfighter
 wastepaper
 watchtower
 watercraft
-waterproof
 waterproof
 wheatgrass
 whorehouse

@@ -6,7 +6,6 @@ acyclovir
 adduction
 adventism
 adverbial
-adverbial
 aerospace
 affection
 affiliate
@@ -35,7 +34,6 @@ antitrust
 antiviral
 apologize
 appertain
-applecart
 arbitrage
 arresting
 artemisia
@@ -113,7 +111,6 @@ classless
 cliffside
 cloudlike
 clustered
-cockfight
 colleague
 collector
 collegian
@@ -148,7 +145,6 @@ darwinian
 datasheet
 debugging
 decoupage
-defective
 defective
 defending
 deficient
@@ -289,7 +285,6 @@ interview
 intestine
 invective
 isoniazid
-jacaranda
 jaundiced
 jessamine
 jockstrap
@@ -325,7 +320,6 @@ luxurious
 macadamia
 madrassah
 magnitude
-malathion
 marketeer
 masochism
 medallist
@@ -347,7 +341,6 @@ monologue
 moonshine
 motorcade
 mousehole
-mujahedin
 multitude
 multiyear
 mutagenic
@@ -361,9 +354,6 @@ nephritis
 nerdiness
 nervously
 neutrally
-noncoding
-nonlinear
-nonprofit
 nonverbal
 normative
 norwegian
@@ -513,7 +503,6 @@ separable
 sepulchre
 servicing
 shielding
-shielding
 shipowner
 shivering
 shortlist
@@ -589,7 +578,6 @@ tentacled
 terahertz
 terminate
 terrarium
-terrorist
 terrorist
 tesseract
 theophany

@@ -38,7 +38,6 @@ beanie
 beside
 biggie
 biking
-biking
 billon
 biopsy
 biotic
@@ -106,7 +105,6 @@ confit
 consul
 convey
 coolly
-coptic
 coptic
 cordon
 corner
@@ -184,7 +182,6 @@ extent
 eyelid
 fabric
 factor
-faggot
 fairly
 farmer
 fasten
@@ -402,9 +399,7 @@ quaker
 quaker
 racing
 radial
-radial
 rafter
-random
 random
 ranter
 rapini
@@ -419,7 +414,6 @@ refill
 remiss
 remold
 repack
-repair
 repair
 repeat
 rescue
@@ -492,7 +486,6 @@ sludgy
 smiler
 smiley
 smudge
-smudge
 snarky
 sneaky
 soccer
@@ -527,7 +520,6 @@ sunlit
 swampy
 sweaty
 tactic
-taoist
 taoist
 tapper
 tartan
@@ -604,12 +596,10 @@ welded
 welder
 welter
 whinny
-whinny
 whisky
 wicket
 wilful
 worker
-wrench
 wrench
 xylose
 yeasty
