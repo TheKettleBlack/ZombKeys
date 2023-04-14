@@ -110,7 +110,7 @@ class Person(pygame.sprite.Sprite):
             fire = Fire(self.x-50,self.y)
             fire_group.add(fire)
             current_health = current_health - len(self.zombkey_word)
-            if current_health < 0:
+            if current_health <= 0:
                 current_health = 0
                 dead()
 
@@ -427,7 +427,7 @@ while run:
         explosion.draw()
 
     if between_rounds == True:
-        draw_text("Press [SPACE] to begin",font,BLACK,340,300)
+        draw_text("Press [ENTER] to begin",font,BLACK,340,300)
         typed = ""
     if game_over == True:
         draw_text("GAME OVER!",font_large,BLACK,325,200)
@@ -496,7 +496,8 @@ while run:
             if event.key == pygame.K_SPACE:
                 if between_rounds == False:
                     shoot()
-                else:
+            if event.key == pygame.K_RETURN:
+                if between_rounds == True:
                     if game_over == True:
                         current_level = 0
                         current_kills = 0
@@ -508,9 +509,6 @@ while run:
                     between_rounds = False
                     blood_group.empty()
                     get_zombkeys()
-            if event.key == pygame.K_RETURN:
-                if between_rounds == False:
-                    shoot()
             if event.key == pygame.K_BACKSPACE:
                 if between_rounds == False:
                     typed = typed[:-1]
