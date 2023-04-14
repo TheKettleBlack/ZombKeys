@@ -82,37 +82,25 @@ class Person(pygame.sprite.Sprite):
         self.y = y
         self.rect = self.image.get_rect()
         z_width = self.rect.width
-        label = Label(zombkey_word,z_width,x,y)
+        if current_level == 1 or current_level == 2:
+            self.speed = round(random.uniform(0.2, 0.5), 2)
+        if current_level == 3 or current_level == 4:
+            self.speed = round(random.uniform(0.3, 0.6), 2)
+        if current_level == 5 or current_level == 6:
+            self.speed = round(random.uniform(0.4, 0.7), 2)
+        if current_level == 7 or current_level == 8:
+            self.speed = round(random.uniform(0.5, 0.8), 2)
+        if current_level == 9 or current_level == 10:
+            self.speed = round(random.uniform(0.6, 0.9), 2)
+        if current_level > 10:
+            self.speed = round(random.uniform(0.7, 1), 2)
+        speed = self.speed
+        label = Label(zombkey_word,z_width,x,y,speed)
         label_group.add(label)
 
     def move_zombkey(self):
         global current_level, current_health, current_remaining
-        if current_level == 1 or current_level == 2:
-            self.x -= 0.3
-        if current_level == 3 or current_level == 4:
-            self.x -= 0.35
-        if current_level == 5 or current_level == 6:
-            self.x -= 0.4
-        if current_level == 7 or current_level == 8:
-            self.x -= 0.45
-        if current_level == 9 or current_level == 10:
-            self.x -= 0.6
-        if current_level == 11 or current_level == 12:
-            self.x -= 0.65
-        if current_level == 13 or current_level == 14:
-            self.x -= 0.7
-        if current_level == 15 or current_level == 16:
-            self.x -= 0.75
-        if current_level == 17 or current_level == 18:
-            self.x -= 0.8
-        if current_level == 19 or current_level == 20:
-            self.x -= 0.85
-        if current_level == 21 or current_level == 22:
-            self.x -= 0.9
-        if current_level == 23 or current_level == 24:
-            self.x -= 0.95
-        if current_level > 24:
-            self.x -= 1
+        self.x -= self.speed
         if self.x < 100:
             for j in label_group:
                 if j.zombkey_word == self.zombkey_word:
@@ -130,9 +118,10 @@ class Person(pygame.sprite.Sprite):
         screen.blit(self.image,(self.x,self.y))
 
 class Label(pygame.sprite.Sprite):
-    def __init__(self,zombkey_word,z_width,x,y):
+    def __init__(self,zombkey_word,z_width,x,y,speed):
         pygame.sprite.Sprite.__init__(self)
         self.zombkey_word = zombkey_word
+        self.speed = speed
         self.img = font_small.render(" " + zombkey_word + " ",True,BLACK,WHITE)
         self.rect = self.img.get_rect()
         label_width = self.rect.width
@@ -145,33 +134,7 @@ class Label(pygame.sprite.Sprite):
         self.y = y-12
 
     def move_label(self):
-        global current_level
-        if current_level == 1 or current_level == 2:
-            self.x -= 0.3
-        if current_level == 3 or current_level == 4:
-            self.x -= 0.35
-        if current_level == 5 or current_level == 6:
-            self.x -= 0.4
-        if current_level == 7 or current_level == 8:
-            self.x -= 0.45
-        if current_level == 9 or current_level == 10:
-            self.x -= 0.6
-        if current_level == 11 or current_level == 12:
-            self.x -= 0.65
-        if current_level == 13 or current_level == 14:
-            self.x -= 0.7
-        if current_level == 15 or current_level == 16:
-            self.x -= 0.75
-        if current_level == 17 or current_level == 18:
-            self.x -= 0.8
-        if current_level == 19 or current_level == 20:
-            self.x -= 0.85
-        if current_level == 21 or current_level == 22:
-            self.x -= 0.9
-        if current_level == 23 or current_level == 24:
-            self.x -= 0.95
-        if current_level > 24:
-            self.x -= 1
+        self.x -= self.speed
 
     def draw(self):
         screen.blit(self.img,(self.x,self.y))
