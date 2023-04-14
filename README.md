@@ -28,3 +28,6 @@ In this update:
 - Cleaned up the word lists, removing duplicate and offensive words
 - Any typed characters are now cleared between rounds
 - The player now moves in line with any zombkey they shoot
+
+## v0.4 (4/14/23)
+- Variable zombkey speed
