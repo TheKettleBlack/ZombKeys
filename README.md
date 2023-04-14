@@ -11,7 +11,6 @@ Type the word above the zombie's head, and hit enter or space to shoot a zombie 
 Inital release.
 
 ## v0.2 (3/26/23)
-In this update:
 - The padding on the zombkey word has been increased for improved legibility
 - A program icon has been added for the window
 - When you kill a zombkey, there is blood spatter added to the ground which is cleared between rounds
