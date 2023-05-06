@@ -1,7 +1,10 @@
 import pygame
 import time
 import random
+from pygame import mixer
+pygame.mixer.pre_init(44100,-16,512)
 
+mixer.init()
 pygame.init()
 
 # game variables
@@ -54,6 +57,16 @@ img_e = pygame.image.load('img/explosion/0.png').convert_alpha()
 img_bomb = pygame.image.load('img/bomb.png').convert_alpha()
 img_burst = pygame.image.load('img/burst/0.png').convert_alpha()
 
+# sounds
+shot_fx = pygame.mixer.Sound('sound/shot.wav')
+shot_fx.set_volume(0.2)
+click_fx = pygame.mixer.Sound('sound/click.wav')
+click_fx.set_volume(0.2)
+burst_fx = pygame.mixer.Sound('sound/burst.wav')
+burst_fx.set_volume(0.2)
+zombkey_fx = pygame.mixer.Sound('sound/zombkey.wav')
+zombkey_fx.set_volume(0.2)
+
 # classes
 class Person(pygame.sprite.Sprite):
     def __init__(self,zombkey_word,x,y):
@@ -104,6 +117,7 @@ class Person(pygame.sprite.Sprite):
         global current_level, current_health, current_remaining, current_kills
         self.x -= self.speed
         if self.x < 100:
+            zombkey_fx.play()
             for j in label_group:
                 if j.zombkey_word == self.zombkey_word:
                     j.kill()
@@ -125,6 +139,7 @@ class Person(pygame.sprite.Sprite):
                     burst_group.add(burst)
                     self.kill()
                     bomb_group.empty()
+                    burst_fx.play()
                     for label in label_group:
                         if self.zombkey_word == label.zombkey_word:
                             label.kill()
@@ -166,7 +181,6 @@ class Explosion(pygame.sprite.Sprite):
         self.x = explosion_x
         self.y = explosion_y
         self.rect = self.image.get_rect()
-        # explosion_sprite = (self.image,(self.x,self.y))
         self.counter = 0
 
     def update(self):
@@ -196,7 +210,6 @@ class Burst(pygame.sprite.Sprite):
         self.x = burst_x
         self.y = burst_y
         self.rect = self.image.get_rect()
-        # burst_sprite = (self.image,(self.x,self.y))
         self.counter = 0
 
     def update(self):
@@ -233,7 +246,6 @@ class Blood(pygame.sprite.Sprite):
         elif random_image == 6:
             self.image = img_b6
         self.rect = self.image.get_rect()
-        # blood_sprite = (self.image,(self.x,self.y))
 
     def draw(self):
         for blood in blood_group:
@@ -246,7 +258,6 @@ class Fire(pygame.sprite.Sprite):
         self.y = fire_y
         self.image = img_f
         self.rect = self.image.get_rect()
-        # fire_sprite = (self.image,(self.x,self.y))
 
     def draw(self):
         for fire in fire_group:
@@ -271,7 +282,6 @@ class Bomb(pygame.sprite.Sprite):
         self.y = bomb_y
         self.image = img_bomb
         self.rect = self.image.get_rect()
-        # self.bomb_sprite = (self.image,(self.x,self.y))
 
     def draw(self):
         for bomb in bomb_group:
@@ -297,9 +307,12 @@ def type_updater(letter):
 
 def shoot():
     global typed, current_kills, current_remaining, between_rounds
+    got_a_kill = False
     for zombkey in zombkey_group:
         if typed == zombkey.zombkey_word:
+            got_a_kill = True
             zombkey.kill()
+            shot_fx.play()
             current_kills += 1
             current_remaining -= 1
             explosion_sprite = Explosion(zombkey.x,zombkey.y)
@@ -309,14 +322,16 @@ def shoot():
             player = Player(zombkey.y)
             player_group.add(player)
 
-            if current_kills % 10 == 0:
-                #is there already a bomb? If not, add one. If so, don't.
+            if (current_kills != 0) and (current_kills % 10 == 0):
                 if len(bomb_group.sprites()) == 0:
-                    #add a bomb to the screen in a screen-safe area.
                     random_x = random.randint(150,SCREEN_WIDTH-100)
                     random_y = random.randint(100,SCREEN_HEIGHT-50)
                     bomb = Bomb(random_x,random_y)
                     bomb_group.add(bomb)
+
+    if not got_a_kill:
+        got_a_kill = False
+        click_fx.play()
 
     for label in label_group:
         if typed == label.zombkey_word:
@@ -468,7 +483,6 @@ while run:
     draw_text("Health: " + str(current_health),font,WHITE,12,12)
     draw_text("Level: " + str(current_level),font,WHITE,212,12)
     draw_text("Kills: " + str(current_kills),font,WHITE,412,12)
-    #draw_text("Remaining: " + str(current_remaining),font,WHITE,372,12)
     draw_text("Shot: " + str(typed),font,WHITE,612,12)
 
     for player in player_group:
