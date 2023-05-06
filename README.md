@@ -3,7 +3,7 @@ A zombie killing typing game. Requires PyGame and Python.
 
 How to play:
 
-Hit [Enter] to start a round. Type the word above the zombie's head, and hit [Space] to shoot a zombie and kill it. Words get longer and more zombkeys spawn each round. If a zombie reaches your fortification before you've killed it, it will damage your fortification for a number of points equal to the number of letters in the word. If your fortification health reaches zero, it's game over.
+Hit [Enter] to start a round. Type the word above the zombie's head, and hit [Space] to shoot a zombie and kill it. Words get longer and more zombkeys spawn each round. If a zombie reaches your fortification before you've killed it, it will damage your fortification for a number of points equal to the number of letters in the word. If your fortification health reaches zero, it's game over!
 
 ![ZombKeys Gameplay Screenshot](/ZombKeys_Gameplay_Screenshot.png?raw=true "ZombKeys Gameplay Screenshot")
 
@@ -31,3 +31,10 @@ Inital release.
 ## v0.4 (4/14/23)
 - Variable zombkey speed
 - [Enter] now starts a round, and [Space] now shoots
+
+## v0.5 (5/6/23)
+- You now get credit for the kill of a breaching zombkey
+- If you shoot a zombkey that brings your score to a multiple of 10, a bomb will appear on the killing field if there is not already one available
+- Note: Breaching zombkeys that bring the score to a multiple of 10 do NOT spawn a bomb; you've got to earn it
+- If a zombkey walks over a bomb, they will explode and you get credit for the kill
+- Unnecessary calls removed (sprites created that were unused)
