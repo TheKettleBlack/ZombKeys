@@ -8,7 +8,7 @@ Hit [Enter] to start a round. Type the word above the zombie's head, and hit [Sp
 ![ZombKeys Gameplay Screenshot](/ZombKeys_Gameplay_Screenshot.png?raw=true "ZombKeys Gameplay Screenshot")
 
 ## v0.1 (3/25/23)
-- Initial release.
+- Initial release
 
 ## v0.2 (3/26/23)
 - The padding on the zombkey word has been increased for improved legibility
