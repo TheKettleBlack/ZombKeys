@@ -51,6 +51,8 @@ img_b5 = pygame.image.load('img/b5.png').convert_alpha()
 img_b6 = pygame.image.load('img/b6.png').convert_alpha()
 img_f = pygame.image.load('img/f.png').convert_alpha()
 img_e = pygame.image.load('img/explosion/0.png').convert_alpha()
+img_bomb = pygame.image.load('img/bomb.png').convert_alpha()
+img_burst = pygame.image.load('img/burst/0.png').convert_alpha()
 
 # classes
 class Person(pygame.sprite.Sprite):
@@ -99,13 +101,14 @@ class Person(pygame.sprite.Sprite):
         label_group.add(label)
 
     def move_zombkey(self):
-        global current_level, current_health, current_remaining
+        global current_level, current_health, current_remaining, current_kills
         self.x -= self.speed
         if self.x < 100:
             for j in label_group:
                 if j.zombkey_word == self.zombkey_word:
                     j.kill()
             current_remaining -= 1
+            current_kills += 1
             self.kill()
             fire = Fire(self.x-50,self.y)
             fire_group.add(fire)
@@ -113,6 +116,18 @@ class Person(pygame.sprite.Sprite):
             if current_health <= 0:
                 current_health = 0
                 dead()
+        for bomb in bomb_group:
+            if  ((self.x + self.image.get_height() >= bomb.x) and (self.x <= bomb.x + 25)):
+                if ((self.y + self.image.get_height() >= bomb.y) and (self.y <= bomb.y + 25)):
+                    current_remaining -= 1
+                    current_kills += 1
+                    burst = Burst(bomb.x,bomb.y)
+                    burst_group.add(burst)
+                    self.kill()
+                    bomb_group.empty()
+                    for label in label_group:
+                        if self.zombkey_word == label.zombkey_word:
+                            label.kill()
 
     def draw(self):
         screen.blit(self.image,(self.x,self.y))
@@ -151,7 +166,7 @@ class Explosion(pygame.sprite.Sprite):
         self.x = explosion_x
         self.y = explosion_y
         self.rect = self.image.get_rect()
-        explosion_sprite = (self.image,(self.x,self.y))
+        # explosion_sprite = (self.image,(self.x,self.y))
         self.counter = 0
 
     def update(self):
@@ -168,6 +183,36 @@ class Explosion(pygame.sprite.Sprite):
     def draw(self):
         for explosion in explosion_group:
             screen.blit(explosion.image,(explosion.x,explosion.y))
+
+class Burst(pygame.sprite.Sprite):
+    def __init__(self,burst_x,burst_y):
+        pygame.sprite.Sprite.__init__(self)
+        self.images = []
+        for num in range(1,50):
+            img = pygame.image.load(f'img/burst/{num}.png').convert_alpha()
+            self.images.append(img)
+        self.frame_index = 0
+        self.image = self.images[self.frame_index]
+        self.x = burst_x
+        self.y = burst_y
+        self.rect = self.image.get_rect()
+        # burst_sprite = (self.image,(self.x,self.y))
+        self.counter = 0
+
+    def update(self):
+        BURST_SPEED = 4
+        self.counter += 1
+        if self.counter >= BURST_SPEED:
+            self.counter = 0
+            self.frame_index += 1
+            if self.frame_index >= len(self.images):
+                self.kill()
+            else:
+                self.image = self.images[self.frame_index]
+
+    def draw(self):
+        for burst in burst_group:
+            screen.blit(burst.image,(burst.x,burst.y))
 
 class Blood(pygame.sprite.Sprite):
     def __init__(self,blood_x,blood_y):
@@ -188,7 +233,7 @@ class Blood(pygame.sprite.Sprite):
         elif random_image == 6:
             self.image = img_b6
         self.rect = self.image.get_rect()
-        blood_sprite = (self.image,(self.x,self.y))
+        # blood_sprite = (self.image,(self.x,self.y))
 
     def draw(self):
         for blood in blood_group:
@@ -199,10 +244,9 @@ class Fire(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.x = fire_x
         self.y = fire_y
-        random_image = random.randint(1,6)
         self.image = img_f
         self.rect = self.image.get_rect()
-        fire_sprite = (self.image,(self.x,self.y))
+        # fire_sprite = (self.image,(self.x,self.y))
 
     def draw(self):
         for fire in fire_group:
@@ -219,6 +263,19 @@ class Player(pygame.sprite.Sprite):
     def draw(self):
         for player in player_group:
             screen.blit(player.image,(player.x,player.y))
+
+class Bomb(pygame.sprite.Sprite):
+    def __init__(self,bomb_x,bomb_y):
+        pygame.sprite.Sprite.__init__(self)
+        self.x = bomb_x
+        self.y = bomb_y
+        self.image = img_bomb
+        self.rect = self.image.get_rect()
+        # self.bomb_sprite = (self.image,(self.x,self.y))
+
+    def draw(self):
+        for bomb in bomb_group:
+            screen.blit(bomb.image,(bomb.x,bomb.y))
 
 # functions
 def draw_bg():
@@ -251,7 +308,16 @@ def shoot():
             blood_group.add(blood_sprite)
             player = Player(zombkey.y)
             player_group.add(player)
-            
+
+            if current_kills % 10 == 0:
+                #is there already a bomb? If not, add one. If so, don't.
+                if len(bomb_group.sprites()) == 0:
+                    #add a bomb to the screen in a screen-safe area.
+                    random_x = random.randint(150,SCREEN_WIDTH-100)
+                    random_y = random.randint(100,SCREEN_HEIGHT-50)
+                    bomb = Bomb(random_x,random_y)
+                    bomb_group.add(bomb)
+
     for label in label_group:
         if typed == label.zombkey_word:
             label.kill()
@@ -387,6 +453,8 @@ explosion_group = pygame.sprite.Group()
 blood_group = pygame.sprite.Group()
 fire_group = pygame.sprite.Group()
 player_group = pygame.sprite.GroupSingle()
+bomb_group = pygame.sprite.GroupSingle()
+burst_group = pygame.sprite.Group()
 
 # initial draw of player sprite
 player = Player()
@@ -404,12 +472,15 @@ while run:
     draw_text("Shot: " + str(typed),font,WHITE,612,12)
 
     for player in player_group:
+        player.update()
         player.draw()
 
     for blood in blood_group:
+        blood.update()
         blood.draw()
 
     for fire in fire_group:
+        fire.update()
         fire.draw()
 
     for zombkey in zombkey_group:
@@ -425,6 +496,14 @@ while run:
     for explosion in explosion_group:
         explosion.update()
         explosion.draw()
+
+    for bomb in bomb_group:
+        bomb.update()
+        bomb.draw()
+
+    for burst in burst_group:
+        burst.update()
+        burst.draw()
 
     if between_rounds == True:
         draw_text("Press [ENTER] to begin",font,BLACK,340,300)
