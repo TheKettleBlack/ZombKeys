@@ -38,3 +38,4 @@ Hit [Enter] to start a round. Type the word above the zombie's head, and hit [Sp
 - Note: Breaching zombkeys that bring the score to a multiple of 10 do NOT spawn a bomb; you've got to earn it
 - If a zombkey walks over a bomb, they will explode and you get credit for the kill
 - Unnecessary calls removed (sprites created that were unused)
+- Sound effects were added
